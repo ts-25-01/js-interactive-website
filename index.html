@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Tutorial - Interaktive Webseite bauen</title>
+    <!-- importiere Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Javascript Frontend-Entwicklung</h1>
+            <p>Wir wollen Schritt für Schritt eine interaktive Webseite mit <strong>Vanilla JS</strong> bauen</p>
+        </header>
+        <main>
+            <section class="component">
+                <!-- Komponente 1: Counter implementieren -->
+                <h2>Counter-Komponente</h2>
+                <p><strong>Was lernen wir hier?</strong> Grundlagen der Zustandsverwaltung und Event-Handling</p>
+                <!-- Display, das uns den aktuellen Zählerstand anzeigt -->
+                <div class="counter-display">
+                    <span id="counter-value">0</span>
+                </div>
+                <!-- Buttons, um den Zustand des Zählers zu verändern -->
+                <div class="btn-group">
+                    <button class="btn" onclick="incrementCounter()">Erhöhen (+1)</button>
+                    <button class="btn" onclick="decrementCounter()">Verringern (-1)</button>
+                    <button class="btn" onclick="resetCounter()">Zurücksetzen</button>
+                    <button class="btn" onclick="multiplyCounter()">Verzehnfachen</button>
+                </div>
+                <div id="counter-feedback" class="feedback">Feedback</div>
+            </section>
+            <!-- Zweite Komponente zum Text manipulieren -->
+            <section class="component">
+                <h2>Text-Manipulator</h2>
+                <p><strong>Was lernen wir hier?</strong> DOM-Manipulation und String-Verarbeitung</p>
+                <!-- Das ist die Box, wo der String gezeigt wird -->
+                <div class="text-display">
+                    <p id="demo-text">Das ist ein Beispieltext</p>
+                </div>
+                <!-- Das ist die Gruppe an Buttons, um unseren Text zu verändern -->
+                 <div class="btn-group">
+                    <button class="btn" onclick="makeUppercase()">Großbuchstaben</button>
+                    <button class="btn" onclick="makeLowercase()">Kleinbuchstaben</button>
+                    <button class="btn" onclick="toggleBold()">Fettschrift</button>
+                    <button class="btn" onclick="changeTextColor()">Farbe ändern</button>
+                    <button class="btn" onclick="resetText()">Text zurücksetzen</button>
+                 </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 Kurs 25-01</p>
+        </footer>
+    </div>
+    <!-- Ganz am Ende laden wir die Javascript-Dateien -->
+    <script src="main.js"></script>
+</body>
+
+</html>
