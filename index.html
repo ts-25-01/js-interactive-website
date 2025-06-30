@@ -7,6 +7,9 @@
     <title>Javascript Tutorial - Interaktive Webseite bauen</title>
     <!-- importiere Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kumar+One+Outline&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 </head>
 
 <body >
@@ -16,6 +19,43 @@
             <p>Wir wollen Schritt für Schritt eine interaktive Webseite mit <strong>Vanilla JS</strong> bauen</p>
         </header>
         <main>
+            <!-- Taschenrechner-Komponente -->
+             <section class="component">
+                <h2>Taschenrechner</h2>
+                <p><strong>Was lernen wir hier?</strong> Komplexe Anwendungslogik und Eingabevalidierung</p>
+                <div class="calculator">
+                    <!-- Display zum Anzeigen der Eingabe und Ergebnis des Taschenrechners -->
+                    <div class="calculator-display">
+                        <div id="calc-input">0</div>
+                        <div id="calc-result">=</div>
+                    </div>
+                    <div class="calculator-buttons">
+                        <!-- Erste Reihe: Clear, Division, Multiplikation, Ein Element löschen -->
+                         <button class="btn calc-btn" onclick="clearDisplay()">C</button>
+                         <button class="btn calc-btn" onclick="updateDisplay('/')">/</button>
+                         <button class="btn calc-btn" onclick="updateDisplay('*')">*</button>
+                         <button class="btn calc-btn" onclick="updateDisplay('←')">←</button>
+                         <!-- Zweite Reihe: 7, 8, 9, Subtraktion -->
+                          <button class="btn calc-btn" onclick="updateDisplay(7)">7</button>
+                         <button class="btn calc-btn" onclick="updateDisplay(8)">8</button>
+                         <button class="btn calc-btn" onclick="updateDisplay(9)">9</button>
+                         <button class="btn calc-btn" onclick="updateDisplay('-')">-</button>
+                         <!-- Dritte Reihe: 4, 5, 6, Addition -->
+                          <button class="btn calc-btn" onclick="updateDisplay(4)">4</button>
+                         <button class="btn calc-btn" onclick="updateDisplay(5)">5</button>
+                         <button class="btn calc-btn" onclick="updateDisplay(6)">6</button>
+                         <button class="btn calc-btn" onclick="updateDisplay('+')">+</button>
+                         <!-- Vierte Reihe: 1, 2, 3, Equals -->
+                          <button class="btn calc-btn" onclick="updateDisplay(1)">1</button>
+                         <button class="btn calc-btn" onclick="updateDisplay(2)">2</button>
+                         <button class="btn calc-btn" onclick="updateDisplay(3)">3</button>
+                         <button class="btn calc-btn equals" onclick="" rowspan="2">=</button>
+                         <!-- Fünfte Reihe: Null und Komma -->
+                          <button class="btn calc-btn zero" onclick="updateDisplay(0)">0</button>
+                         <button class="btn calc-btn" onclick="updateDisplay(',')">,</button>
+                    </div>
+                </div>
+             </section>
             <section class="component">
                 <!-- Komponente 1: Counter implementieren -->
                 <h2>Counter-Komponente</h2>

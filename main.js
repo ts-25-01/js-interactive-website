@@ -201,3 +201,17 @@ function resetTheme(){
 
 
 
+// Taschenrechner
+
+// Eine Variable für das Display für die Eingabe
+let currentDisplay = 0;
+
+function updateDisplay(value){
+    currentDisplay = value;
+    document.getElementById('calc-input').textContent = currentDisplay;
+}
+
+function clearDisplay(){
+    currentDisplay = 0;
+    document.getElementById('calc-input').textContent = currentDisplay;
+}
