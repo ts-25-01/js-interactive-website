@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body >
     <div class="container">
         <header>
             <h1>Javascript Frontend-Entwicklung</h1>
@@ -50,6 +50,22 @@
                     <button class="btn" onclick="resetText()">Text zurücksetzen</button>
                  </div>
             </section>
+            <!-- Komponente 3: Theme-Wechsler -->
+             <section class="component">
+                <h2>Theme-Switcher</h2>
+                <p><strong>Was lernen wir hier?</strong> Dynamische CSS-Klassen und Layout-Änderungen</p>
+                <!-- Das ist die Box, wo das aktuelle Theme angezeigt werden soll -->
+                <div class="theme-info">
+                    <div>Aktuelles Theme:</div>
+                    <div id="current-theme">Standard</div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" onclick="applyLightTheme()">Light Theme</button>
+                    <button class="btn" onclick="applyDarkTheme()">Dark Theme</button>
+                    <!-- <button class="btn" onclick="applyBlueTheme()">Blue Theme</button> -->
+                    <button class="btn" onclick="resetTheme()">Standard</button>
+                </div>
+             </section>
         </main>
         <footer>
             <p>&copy; 2025 Kurs 25-01</p>

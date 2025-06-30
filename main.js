@@ -168,3 +168,36 @@ function resetText() {
 }
 
 
+// Komponente 3: Theme-Switcher
+
+let currentTheme = 'Standard';
+
+function applyLightTheme(){
+    document.body.className = 'theme-light';
+    currentTheme = 'Light';
+    document.getElementById('current-theme').textContent = currentTheme;
+    logAction("Theming", "Theme wurde auf Light gesetzt");
+}
+
+
+function applyDarkTheme(){
+    document.body.className = 'theme-dark';
+    currentTheme = 'Dark';
+    document.getElementById('current-theme').textContent = currentTheme;
+    logAction("Theming", "Theme wurde auf Dark gesetzt");
+}
+
+// function applyBlueTheme(){
+//     console.log("Blue Theme wird angewandt");
+// }
+
+function resetTheme(){
+    document.body.className = '';
+    currentTheme = 'Standard';
+    document.getElementById('current-theme').textContent = currentTheme;
+    logAction("Theming", "Theme wurde auf Standard zurückgesetzt");
+}
+
+
+
+
