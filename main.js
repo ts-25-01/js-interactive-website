@@ -204,14 +204,28 @@ function resetTheme(){
 // Taschenrechner
 
 // Eine Variable für das Display für die Eingabe
-let currentDisplay = 0;
+let currentDisplay = '0';
 
 function updateDisplay(value){
-    currentDisplay = value;
+    if (currentDisplay === '0'){
+        currentDisplay = value;
+    }
+    else {
+        currentDisplay = currentDisplay.toString() + value.toString();
+    }
     document.getElementById('calc-input').textContent = currentDisplay;
 }
 
+function deleteLastValue(){
+    if (currentDisplay.length > 1){
+        currentDisplay = currentDisplay.slice(0,-1);
+    } else {
+        currentDisplay = "0";
+    }
+        document.getElementById('calc-input').textContent = currentDisplay;
+}
+
 function clearDisplay(){
-    currentDisplay = 0;
+    currentDisplay = '0';
     document.getElementById('calc-input').textContent = currentDisplay;
 }
