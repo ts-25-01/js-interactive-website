@@ -1,7 +1,7 @@
 console.log("Javascript Tutorial wird gestartet");
 
 // Logging Funktion für Aktionen, die gleich auf der Seite gemacht werden
-function logAction(action, details){
+function logAction(action, details) {
     console.log(`Aktion: ${action},`, details || '');
 }
 
@@ -32,7 +32,7 @@ function incrementCounter() {
     logAction("Erhöhen-Button gedrückt", "Der Counter wird nun erhöht");
 }
 
-function decrementCounter(){
+function decrementCounter() {
     // console.log("Counter wird verringert");
     // console.log("Neuer Counter-Value ist", counterValue);
     // Achtung: Feedback geben, dass Counter ab 0 negativ nicht verringert werden kann
@@ -58,7 +58,7 @@ function decrementCounter(){
     logAction("Verringern-Button gedrückt", "Der Counter wird nun verringert");
 }
 
-function resetCounter(){
+function resetCounter() {
     // console.log("Counter wird zurückgesetzt");
     if (counterValue === 0) {
         // hole dir das feedback Element über die ID
@@ -80,7 +80,7 @@ function resetCounter(){
     logAction("Zurücksetzen-Button gedrückt", "Der Counter wird nun zurückgesetzt");
 }
 
-function multiplyCounter(){
+function multiplyCounter() {
     // console.log("Counter wird verzehnfacht");
     counterValue *= 10;
     if (counterValue >= 100) {
@@ -144,7 +144,7 @@ function toggleBold() {
 
 function changeTextColor() {
     const textElement = document.getElementById('demo-text');
-    const colors = ['#F8D210','#FA26A0','#000000','#2FF3E0','#59981A','#A49393']
+    const colors = ['#F8D210', '#FA26A0', '#000000', '#2FF3E0', '#59981A', '#A49393']
     // Wähle zufällige Farbe aus dem colors-Array
     const randomIndex = Math.floor(Math.random() * colors.length)
     console.log("Zufälliger Index", randomIndex)
@@ -172,7 +172,7 @@ function resetText() {
 
 let currentTheme = 'Standard';
 
-function applyLightTheme(){
+function applyLightTheme() {
     document.body.className = 'theme-light';
     currentTheme = 'Light';
     document.getElementById('current-theme').textContent = currentTheme;
@@ -180,7 +180,7 @@ function applyLightTheme(){
 }
 
 
-function applyDarkTheme(){
+function applyDarkTheme() {
     document.body.className = 'theme-dark';
     currentTheme = 'Dark';
     document.getElementById('current-theme').textContent = currentTheme;
@@ -191,7 +191,7 @@ function applyDarkTheme(){
 //     console.log("Blue Theme wird angewandt");
 // }
 
-function resetTheme(){
+function resetTheme() {
     document.body.className = '';
     currentTheme = 'Standard';
     document.getElementById('current-theme').textContent = currentTheme;
@@ -205,27 +205,109 @@ function resetTheme(){
 
 // Eine Variable für das Display für die Eingabe
 let currentDisplay = '0';
+// Variable, die die Eingabe der ersten Zahl vor dem Operator-Zeichen speichert
+let firstNumber = null;
+// Variable, die die Operation speichert
+let currentOperation = null;
+// Status, ob wir auf eine zweite Zahl warten
+let waitingForNewNumber = false;
 
-function updateDisplay(value){
-    if (currentDisplay === '0'){
-        currentDisplay = value;
-    }
-    else {
-        currentDisplay = currentDisplay.toString() + value.toString();
-    }
+// Funktion schreibt die Eingabe in das Fenster oben
+function updateDisplay() {
     document.getElementById('calc-input').textContent = currentDisplay;
-}
-
-function deleteLastValue(){
-    if (currentDisplay.length > 1){
-        currentDisplay = currentDisplay.slice(0,-1);
+    const resultElement = document.getElementById('calc-result');
+    if (firstNumber !== null && currentOperation !== null){
+        if (waitingForNewNumber){
+            resultElement.textContent = firstNumber + " " + currentOperation;
+        } else {
+            resultElement.textContent = `${firstNumber} ${currentOperation} ${currentDisplay}` ;
+        }
     } else {
-        currentDisplay = "0";
+
+        resultElement.textContent = "";
     }
-        document.getElementById('calc-input').textContent = currentDisplay;
+}
+// Funktion, um Zahlen hinzuzufügen, die dann im Display dargestellt werden
+function addToCalculator(value) {
+    if (waitingForNewNumber === true){
+        currentDisplay = value;
+        waitingForNewNumber = false;
+    } else {
+        if (currentDisplay === '0') {
+            currentDisplay = value;
+        }
+        else {
+            currentDisplay = currentDisplay.toString() + value.toString();
+        }
+    }
+    updateDisplay();
 }
 
-function clearDisplay(){
-    currentDisplay = '0';
+function deleteLastValue() {
+    if (currentDisplay.length > 1) {
+        currentDisplay = currentDisplay.slice(0, -1);
+    } else {
+        currentDisplay = '0';
+    }
     document.getElementById('calc-input').textContent = currentDisplay;
+}
+
+function clearDisplay() {
+    currentDisplay = '0';
+    firstNumber = null;
+    currentOperation = null;
+    waitingForNewNumber = false;
+    updateDisplay();
+}
+
+// Funktion, um die Operation festzulegen
+function calculateOperation(operation) {
+    // if (operation !== '+') {
+    //     // window.alert("Wir haben bisher nur + implementiert");
+    //     console.log("Wir haben bisher nur + implementiert");
+    //     return;
+    // }
+    firstNumber = currentDisplay;
+    currentOperation = operation;
+    waitingForNewNumber = true;
+    updateDisplay();
+}
+
+// Funktion, um das Ergebnis zu berechnen#
+function calculateResult(){
+    if (firstNumber === null || currentOperation === null){
+        console.log("Achtung keine Zahl eingegeben oder keine Operation ausgewählt")
+        return;
+    }
+    const num1 = parseFloat(firstNumber);
+    const num2 = parseFloat(currentDisplay);
+    let result;
+
+    switch (currentOperation){
+        case '+': // if (currentOperation === '+')
+            console.log("Addition");
+            result = num1 + num2;
+            break;
+        case '-':
+            console.log("Subtraktion");
+            result = num1 - num2;
+            break;
+        case '*':
+            console.log("Multiplikation");
+            result = num1 * num2;
+            break;
+        case '/':
+            console.log("Division");
+            if (num2 === 0){
+                window.alert("Wir können nicht durch 0 teilen");
+                return;
+            }
+            result = num1 / num2;
+            break;
+    }
+    currentDisplay = result.toString();
+    firstNumber = null;
+    currentOperation = null;
+    waitingForNewNumber = false;
+    updateDisplay();
 }
