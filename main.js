@@ -209,26 +209,37 @@ let currentDisplay = '0';
 let firstNumber = null;
 // Variable, die die Operation speichert
 let currentOperation = null;
+// Status, ob wir auf eine zweite Zahl warten
+let waitingForNewNumber = false;
 
 // Funktion schreibt die Eingabe in das Fenster oben
 function updateDisplay() {
     document.getElementById('calc-input').textContent = currentDisplay;
     const resultElement = document.getElementById('calc-result');
-    if (currentOperation !== null){
-        resultElement.textElement = firstNumber + " " + currentOperation;
+    if (firstNumber !== null && currentOperation !== null){
+        if (waitingForNewNumber){
+            resultElement.textContent = firstNumber + " " + currentOperation;
+        } else {
+            resultElement.textContent = `${firstNumber} ${currentOperation} ${currentDisplay}` ;
+        }
     } else {
-        resultElement.textContent = "=";
+
+        resultElement.textContent = "";
     }
 }
-
+// Funktion, um Zahlen hinzuzufügen, die dann im Display dargestellt werden
 function addToCalculator(value) {
-    if (currentDisplay === '0') {
+    if (waitingForNewNumber === true){
         currentDisplay = value;
+        waitingForNewNumber = false;
+    } else {
+        if (currentDisplay === '0') {
+            currentDisplay = value;
+        }
+        else {
+            currentDisplay = currentDisplay.toString() + value.toString();
+        }
     }
-    else {
-        currentDisplay = currentDisplay.toString() + value.toString();
-    }
-    console.log(currentDisplay);
     updateDisplay();
 }
 
@@ -243,19 +254,60 @@ function deleteLastValue() {
 
 function clearDisplay() {
     currentDisplay = '0';
-    document.getElementById('calc-input').textContent = currentDisplay;
+    firstNumber = null;
+    currentOperation = null;
+    waitingForNewNumber = false;
+    updateDisplay();
 }
 
 // Funktion, um die Operation festzulegen
 function calculateOperation(operation) {
-    if (operation !== '+') {
-        // window.alert("Wir haben bisher nur + implementiert");
-        console.log("Wir haben bisher nur + implementiert");
+    // if (operation !== '+') {
+    //     // window.alert("Wir haben bisher nur + implementiert");
+    //     console.log("Wir haben bisher nur + implementiert");
+    //     return;
+    // }
+    firstNumber = currentDisplay;
+    currentOperation = operation;
+    waitingForNewNumber = true;
+    updateDisplay();
+}
+
+// Funktion, um das Ergebnis zu berechnen#
+function calculateResult(){
+    if (firstNumber === null || currentOperation === null){
+        console.log("Achtung keine Zahl eingegeben oder keine Operation ausgewählt")
         return;
     }
-    firstNumber = currentDisplay;
-    console.log("First Number", firstNumber);
-    currentOperation = operation;
-    updateDisplay("Aktuelle Operation", operation);
-    console.log("Operation ausgewählt: ", operation);
+    const num1 = parseFloat(firstNumber);
+    const num2 = parseFloat(currentDisplay);
+    let result;
+
+    switch (currentOperation){
+        case '+': // if (currentOperation === '+')
+            console.log("Addition");
+            result = num1 + num2;
+            break;
+        case '-':
+            console.log("Subtraktion");
+            result = num1 - num2;
+            break;
+        case '*':
+            console.log("Multiplikation");
+            result = num1 * num2;
+            break;
+        case '/':
+            console.log("Division");
+            if (num2 === 0){
+                window.alert("Wir können nicht durch 0 teilen");
+                return;
+            }
+            result = num1 / num2;
+            break;
+    }
+    currentDisplay = result.toString();
+    firstNumber = null;
+    currentOperation = null;
+    waitingForNewNumber = false;
+    updateDisplay();
 }
