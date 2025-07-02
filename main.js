@@ -211,10 +211,16 @@ let firstNumber = null;
 let currentOperation = null;
 // Status, ob wir auf eine zweite Zahl warten
 let waitingForNewNumber = false;
+// Alternative: Globale Variable mit Anzeige, ob wir Result berechnen
+let showingResult = false;
 
 // Funktion schreibt die Eingabe in das Fenster oben
 function updateDisplay() {
     document.getElementById('calc-input').textContent = currentDisplay;
+    // überprüfe, ob wir ein Result berechnen:
+    if (showingResult){
+        return;
+    }
     const resultElement = document.getElementById('calc-result');
     if (firstNumber !== null && currentOperation !== null){
         if (waitingForNewNumber){
@@ -257,6 +263,7 @@ function clearDisplay() {
     firstNumber = null;
     currentOperation = null;
     waitingForNewNumber = false;
+    showingResult = false;
     updateDisplay();
 }
 
@@ -306,8 +313,12 @@ function calculateResult(){
             break;
     }
     currentDisplay = result.toString();
+    document.getElementById('calc-result').textContent = `${num1} ${currentOperation} ${num2} = ${result}`;
+    showingResult = true;
+    // const resultString = document.getElementById('calc-result').textContent  + " = " + result;
     firstNumber = null;
     currentOperation = null;
     waitingForNewNumber = false;
     updateDisplay();
+    // document.getElementById('calc-result').textContent = resultString
 }
